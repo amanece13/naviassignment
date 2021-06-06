@@ -15,7 +15,7 @@ public class Order {
     private LocalTime time;
     private String stock;
     private OrderType orderType;
-    private Float price;
+    private Double price;
     private int quantity;
 
     public String getOrderId() {
@@ -53,11 +53,11 @@ public class Order {
             this.orderType = OrderType.SELL;
     }
 
-    public Float getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(Float price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 

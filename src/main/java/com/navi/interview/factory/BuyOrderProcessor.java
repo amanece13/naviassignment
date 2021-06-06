@@ -35,7 +35,7 @@ public class BuyOrderProcessor implements OrderProcessor {
 
                     int soldQuantity = (currentOrder.getQuantity() - orders.get(j).getQuantity()) > 0 ? (currentOrder.getQuantity() - orders.get(j).getQuantity()) : currentOrder.getQuantity();
 
-                    System.out.println(currentOrder.getOrderId() + " " + orders.get(j).getPrice() + " " + soldQuantity + " " + orders.get(j).getOrderId());
+                    System.out.println(orders.get(j).getOrderId() + " " + soldQuantity + " " + orders.get(j).getPrice()  + " " + currentOrder.getOrderId());
 
                     currentOrder.setQuantity(currentOrder.getQuantity() > orders.get(j).getQuantity() ? currentOrder.getQuantity() - orders.get(j).getQuantity() : 0);
                     orders.get(j).setQuantity(currentOrder.getQuantity() == 0 ? orders.get(j).getQuantity() - soldQuantity : 0);

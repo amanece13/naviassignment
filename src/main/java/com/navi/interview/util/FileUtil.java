@@ -33,8 +33,8 @@ public class FileUtil {
                 newOrder.setTime(LocalTime.parse(stockData[1], DateTimeFormatter.ofPattern("HH:mm")));
                 newOrder.setStock(stockData[2]);
                 newOrder.setOrderType(stockData[3]);
-                newOrder.setPrice(Float.parseFloat(stockData[4]));
-                newOrder.setQuantity(Integer.parseInt(stockData[5]));
+                newOrder.setQuantity(Integer.parseInt(stockData[4]));
+                newOrder.setPrice(Double.parseDouble(stockData[5]));
 
                 orders.add(newOrder);
             });
