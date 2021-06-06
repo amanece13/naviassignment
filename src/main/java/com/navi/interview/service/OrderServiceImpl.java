@@ -32,10 +32,6 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void processOrders(ArrayList<Order> orders) {
 
-      /*  for(Order order: orders){
-            OrderProcessor orderProcessor = orderFactory.getOrderProcessorType(currentOrder.getOrderType());
-            orderProcessor.processOrder(i,orders);
-        }*/
         for (int i = 0; i < orders.size(); i++) {
             Order currentOrder = orders.get(i);
             OrderProcessor orderProcessor = orderFactory.getOrderProcessorType(currentOrder.getOrderType());

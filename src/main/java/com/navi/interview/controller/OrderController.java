@@ -26,13 +26,15 @@ public class OrderController {
     public ResponseEntity uploadOrders(@RequestParam("file") MultipartFile ordersDataFile) throws IOException {
         log.info("request received ");
 
-        if(ordersDataFile.isEmpty())
+        if(ordersDataFile.isEmpty()){
+            log.info("Empty file provided");
             throw new EmptyFileException(System.currentTimeMillis(),
                     HttpStatus.BAD_REQUEST,
                     "Empty file provided",
                     "Please check for missing information",
                     false);
 
+        }
         orderService.readOrders(ordersDataFile);
         return new ResponseEntity(HttpStatus.OK);
     }

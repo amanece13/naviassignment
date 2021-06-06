@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@RequiredArgsConstructor
 public class EmptyFileException extends RuntimeException{
 
     private Long timestamp;

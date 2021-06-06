@@ -1,14 +1,16 @@
 package com.navi.interview.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 import java.time.LocalTime;
 
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Order {
 
     private String orderId;
@@ -17,56 +19,4 @@ public class Order {
     private OrderType orderType;
     private Double price;
     private int quantity;
-
-    public String getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(String orderId) {
-        this.orderId = orderId;
-    }
-
-    public LocalTime getTime() {
-        return time;
-    }
-
-    public void setTime(LocalTime time) {
-        this.time = time;
-    }
-
-    public String getStock() {
-        return stock;
-    }
-
-    public void setStock(String stock) {
-        this.stock = stock;
-    }
-
-    public OrderType getOrderType() {
-        return orderType;
-    }
-
-    public void setOrderType(String orderType) {
-        if (orderType.equalsIgnoreCase(String.valueOf(OrderType.BUY)))
-            this.orderType = OrderType.BUY;
-        else
-            this.orderType = OrderType.SELL;
-    }
-
-    public Double getPrice() {
-        return price;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
 }
