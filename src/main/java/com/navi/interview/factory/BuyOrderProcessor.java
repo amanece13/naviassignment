@@ -1,8 +1,10 @@
 package com.navi.interview.factory;
 
+import com.navi.interview.exception.OrderProcessingException;
 import com.navi.interview.model.Order;
 import com.navi.interview.model.OrderType;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -18,6 +20,11 @@ public class BuyOrderProcessor implements OrderProcessor {
             currentOrder = orders.get(index);
         } catch (IndexOutOfBoundsException e) {
             log.info("no order found");
+            throw new OrderProcessingException(System.currentTimeMillis(),
+                    HttpStatus.INTERNAL_SERVER_ERROR,
+                    "Order is empty",
+                    "No order found for processing",
+                    false);
         }
 
         for (int j = index + 1; j < orders.size() && currentOrder.getQuantity() > 0; j++) {
