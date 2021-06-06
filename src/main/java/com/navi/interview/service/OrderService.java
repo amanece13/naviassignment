@@ -10,7 +10,7 @@ public interface OrderService {
 
     public void readOrders(MultipartFile multipartFile) throws IOException;
 
-    public void processOrders(ArrayList<Order> orders);
+    public boolean processOrders(ArrayList<Order> orders);
 
 //    public void printTransactions(ArrayList<Order> orders);
 }

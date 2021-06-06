@@ -36,8 +36,10 @@ class StockApplicationTests {
 		ArrayList<Order> orders = fileUtil.readInputFile(file);
 		Assertions.assertTrue(orders.size()==0);
 	}
-
-
-	//write a few more tests to check the execution of the orders perfectly
-
+	@Test
+	public void processOrders() throws IOException{
+		File file = new ClassPathResource("orders.txt").getFile();
+		ArrayList<Order> orders = fileUtil.readInputFile(file);
+		Assertions.assertTrue(orderService.processOrders(orders));
+	}
 }

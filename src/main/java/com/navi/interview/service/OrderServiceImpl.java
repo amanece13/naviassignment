@@ -1,5 +1,6 @@
 package com.navi.interview.service;
 
+import com.navi.interview.exception.OrderProcessingException;
 import com.navi.interview.factory.OrderFactory;
 import com.navi.interview.factory.OrderProcessor;
 import com.navi.interview.model.Order;
@@ -7,6 +8,7 @@ import com.navi.interview.model.OrderType;
 import com.navi.interview.util.FileUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -38,7 +40,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void processOrders(ArrayList<Order> orders) {
+    public boolean processOrders(ArrayList<Order> orders) {
 
         //creating a separate list of sell orders
         ArrayList<Order> sellOrders = new ArrayList<>();
@@ -47,10 +49,19 @@ public class OrderServiceImpl implements OrderService {
                 sellOrders.add(order);
         }
 
-        for (int i = 0; i < orders.size(); i++) {
-            Order currentOrder = orders.get(i);
-            OrderProcessor orderProcessor = orderFactory.getOrderProcessorType(currentOrder.getOrderType());
-            orderProcessor.processOrder(i,orders,sellOrders);
+        try{
+            for (int i = 0; i < orders.size(); i++) {
+                Order currentOrder = orders.get(i);
+                OrderProcessor orderProcessor = orderFactory.getOrderProcessorType(currentOrder.getOrderType());
+                orderProcessor.processOrder(i,orders,sellOrders);
+            }
+            return true;
+        } catch (Exception e){
+            throw new OrderProcessingException(System.currentTimeMillis(),
+                    HttpStatus.INTERNAL_SERVER_ERROR,
+                    "Order processing interrupted",
+                    "We encountered an issue while processing the orders",
+                    false);
         }
     }
 }
