@@ -9,13 +9,16 @@ public class CustomExceptionSchema {
     private HttpStatus status;
     private String error;
     private String message;
+    private boolean success;
 
     protected CustomExceptionSchema() {}
 
-    public CustomExceptionSchema(Long timestamp, HttpStatus status, String error, String message) {
+    public CustomExceptionSchema(Long timestamp, HttpStatus status, String error, String message,Boolean success
+    ) {
         this.timestamp = timestamp;
         this.status = status;
         this.error = error;
         this.message = message;
+        this.success = success;
     }
 }

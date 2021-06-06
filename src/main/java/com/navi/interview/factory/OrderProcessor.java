@@ -1,4 +1,4 @@
-package com.navi.interview.service;
+package com.navi.interview.factory;
 
 import com.navi.interview.model.Order;
 

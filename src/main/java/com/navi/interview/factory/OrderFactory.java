@@ -1,9 +1,6 @@
-package com.navi.interview;
+package com.navi.interview.factory;
 
 import com.navi.interview.model.OrderType;
-import com.navi.interview.factory.BuyOrderProcessor;
-import com.navi.interview.factory.OrderProcessor;
-import com.navi.interview.factory.SellOrderProcessor;
 import org.springframework.stereotype.Component;
 
 @Component

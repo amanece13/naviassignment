@@ -1,5 +1,6 @@
-package com.navi.interview.service;
+package com.navi.interview.factory;
 
+import com.navi.interview.factory.OrderProcessor;
 import com.navi.interview.model.Order;
 import com.navi.interview.model.OrderType;
 import org.springframework.stereotype.Service;
