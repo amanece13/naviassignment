@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 @Service
 @Slf4j
@@ -26,6 +27,12 @@ public class OrderServiceImpl implements OrderService {
     public void readOrders(MultipartFile multipartFile) throws IOException {
 
         ArrayList<Order> orders = fileUtil.readInputFile(fileUtil.convert(multipartFile));
+        orders.sort(new Comparator<Order>() {
+            @Override
+            public int compare(Order order, Order t1) {
+                return order.getTime().compareTo(t1.getTime());
+            }
+        });
         processOrders(orders);
     }
 
