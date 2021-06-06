@@ -1,5 +1,5 @@
 package com.navi.interview.model;
 
 public enum OrderType {
-    BUY, SELL
+    BUY, SELL, SHORT, LONG
 }
