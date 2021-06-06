@@ -19,8 +19,7 @@ import java.util.stream.Stream;
 @Component
 public class FileUtil {
 
-    public ArrayList<Order> readInputFile(MultipartFile multiPartFile) throws IOException {
-        File file = convert(multiPartFile);
+    public ArrayList<Order> readInputFile(File file) throws IOException {
         ArrayList<Order> orders = new ArrayList<>();
 
         try{
@@ -51,7 +50,7 @@ public class FileUtil {
         return orders;
     }
 
-    public static File convert(MultipartFile file) throws IOException {
+    public File convert(MultipartFile file) throws IOException {
         File convFile = new File(file.getOriginalFilename());
         convFile.createNewFile();
         FileOutputStream fos = new FileOutputStream(convFile);

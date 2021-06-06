@@ -25,7 +25,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void readOrders(MultipartFile multipartFile) throws IOException {
 
-        ArrayList<Order> orders = fileUtil.readInputFile(multipartFile);
+        ArrayList<Order> orders = fileUtil.readInputFile(fileUtil.convert(multipartFile));
         processOrders(orders);
     }
 
