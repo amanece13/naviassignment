@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 @SpringBootTest
-class InterviewApplicationTests {
+class StockApplicationTests {
 
 	@Autowired
 	private OrderServiceImpl orderService;
