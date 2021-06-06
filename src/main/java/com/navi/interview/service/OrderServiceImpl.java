@@ -3,6 +3,7 @@ package com.navi.interview.service;
 import com.navi.interview.factory.OrderFactory;
 import com.navi.interview.factory.OrderProcessor;
 import com.navi.interview.model.Order;
+import com.navi.interview.model.OrderType;
 import com.navi.interview.util.FileUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,10 +40,17 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void processOrders(ArrayList<Order> orders) {
 
+        //creating a separate list of sell orders
+        ArrayList<Order> sellOrders = new ArrayList<>();
+        for(Order order: orders){
+            if(order.getOrderType().equals(OrderType.SELL))
+                sellOrders.add(order);
+        }
+
         for (int i = 0; i < orders.size(); i++) {
             Order currentOrder = orders.get(i);
             OrderProcessor orderProcessor = orderFactory.getOrderProcessorType(currentOrder.getOrderType());
-            orderProcessor.processOrder(i,orders);
+            orderProcessor.processOrder(i,orders,sellOrders);
         }
     }
 }

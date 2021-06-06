@@ -8,14 +8,20 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 @Service
 @Slf4j
 public class BuyOrderProcessor implements OrderProcessor {
 
     @Override
-    public void processOrder(int index, ArrayList<Order> orders) {
-//        log.info("executing the order since it is a buy order");
+    public void processOrder(int index, ArrayList<Order> orders, ArrayList<Order> sellOrders) {
+
+        /*
+         * In case of buy, we are executing the order
+         *
+         * */
         Order currentOrder = null;
         try {
             currentOrder = orders.get(index);
@@ -28,29 +34,35 @@ public class BuyOrderProcessor implements OrderProcessor {
                     false);
         }
 
+        Collections.sort(sellOrders,
+                Comparator.comparingDouble(Order::getPrice));
 
-        for (int j = 0; j < index && currentOrder.getQuantity() > 0; j++) {
+        /*
+        * We are trying to find the match for the buy order amongst the list of sell orders available
+        *
+        * To meet the match we have already sorted the sellOrderList on the basis of lower price
+        *
+        * */
 
-            if (orders.get(j).getOrderType() == OrderType.SELL && orders.get(j).getStock().equals(currentOrder.getStock())) {
-
-                if (orders.get(j).getPrice() <= currentOrder.getPrice()) {
-                    if (currentOrder.getQuantity() > orders.get(j).getQuantity() && orders.get(j).getQuantity() != 0) {
-                        int soldQuantity = orders.get(j).getQuantity();
-                        System.out.println(orders.get(j).getOrderId() + " " + soldQuantity + " " + orders.get(j).getPrice() + " " + currentOrder.getOrderId());
-                        currentOrder.setQuantity(currentOrder.getQuantity() > orders.get(j).getQuantity() ? currentOrder.getQuantity() - orders.get(j).getQuantity() : 0);
-                        orders.get(j).setQuantity(orders.get(j).getQuantity() - soldQuantity);
-
-                    } else if (currentOrder.getQuantity() < orders.get(j).getQuantity() && orders.get(j).getQuantity() != 0) {
+        for (int j = 0; j < sellOrders.size(); j++) {
+            if (sellOrders.get(j).getStock().equals(currentOrder.getStock())) {
+                if (sellOrders.get(j).getPrice() <= currentOrder.getPrice()) {
+                    if (currentOrder.getQuantity() > sellOrders.get(j).getQuantity() && sellOrders.get(j).getQuantity() != 0) {
+                        int soldQuantity = sellOrders.get(j).getQuantity();
+                        System.out.println(sellOrders.get(j).getOrderId() + " " + soldQuantity + " " + sellOrders.get(j).getPrice() + " " + currentOrder.getOrderId());
+                        currentOrder.setQuantity(currentOrder.getQuantity() > sellOrders.get(j).getQuantity() ? currentOrder.getQuantity() - sellOrders.get(j).getQuantity() : 0);
+                        sellOrders.get(j).setQuantity(sellOrders.get(j).getQuantity() - soldQuantity);
+                    } else if (currentOrder.getQuantity() < sellOrders.get(j).getQuantity() && sellOrders.get(j).getQuantity() != 0) {
                         int soldQuantity = currentOrder.getQuantity();
-                        System.out.println(orders.get(j).getOrderId() + " " + soldQuantity + " " + orders.get(j).getPrice() + " " + currentOrder.getOrderId());
-                        currentOrder.setQuantity(currentOrder.getQuantity() > orders.get(j).getQuantity() ? currentOrder.getQuantity() - orders.get(j).getQuantity() : 0);
-                        orders.get(j).setQuantity(orders.get(j).getQuantity() - soldQuantity);
+                        System.out.println(sellOrders.get(j).getOrderId() + " " + soldQuantity + " " + sellOrders.get(j).getPrice() + " " + currentOrder.getOrderId());
+                        currentOrder.setQuantity(currentOrder.getQuantity() > sellOrders.get(j).getQuantity() ? currentOrder.getQuantity() - sellOrders.get(j).getQuantity() : 0);
+                        sellOrders.get(j).setQuantity(sellOrders.get(j).getQuantity() - soldQuantity);
                     } else {
-                        if (orders.get(j).getQuantity() != 0) {
+                        if (sellOrders.get(j).getQuantity() != 0) {
                             int soldQuantity = currentOrder.getQuantity();
-                            System.out.println(orders.get(j).getOrderId() + " " + soldQuantity + " " + orders.get(j).getPrice() + " " + currentOrder.getOrderId());
+                            System.out.println(sellOrders.get(j).getOrderId() + " " + soldQuantity + " " + sellOrders.get(j).getPrice() + " " + currentOrder.getOrderId());
                             currentOrder.setQuantity(0);
-                            orders.get(j).setQuantity(0);
+                            sellOrders.get(j).setQuantity(0);
                         }
                     }
                 }

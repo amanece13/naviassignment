@@ -15,8 +15,11 @@ import java.util.ArrayList;
 public class SellOrderProcessor implements OrderProcessor {
 
     @Override
-    public void processOrder(int index, ArrayList<Order> orders) {
-//        log.info("recording the order since it is a sell order");
+    public void processOrder(int index, ArrayList<Order> orders, ArrayList<Order> sellOrders) {
+        /*
+        * In case of sell, we are only recording the order
+        *
+        * */
         Order currentOrder = null;
         try {
             currentOrder = orders.get(index);
