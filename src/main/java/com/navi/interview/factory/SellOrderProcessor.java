@@ -3,12 +3,13 @@ package com.navi.interview.factory;
 import com.navi.interview.factory.OrderProcessor;
 import com.navi.interview.model.Order;
 import com.navi.interview.model.OrderType;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 
 @Service
-
+@Slf4j
 public class SellOrderProcessor implements OrderProcessor {
 
     @Override
@@ -17,7 +18,7 @@ public class SellOrderProcessor implements OrderProcessor {
         try {
             currentOrder = orders.get(index);
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Index out of bound exception");
+            log.info("no order found");
         }
 
         for (int j = index + 1; j < orders.size() && currentOrder.getQuantity() > 0; j++) {
