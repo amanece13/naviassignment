@@ -35,8 +35,8 @@ public class FileUtil {
                         .orderId(stockData[0])
                         .time(LocalTime.parse(stockData[1], DateTimeFormatter.ofPattern("HH:mm")))
                         .stock(stockData[2])
-                        .price(Double.parseDouble(stockData[4]))
-                        .quantity(Integer.parseInt(stockData[5]))
+                        .quantity(Integer.parseInt(stockData[4]))
+                        .price(Double.parseDouble(stockData[5]))
                         .build();
 
                 if(stockData[3].equalsIgnoreCase(String.valueOf(OrderType.BUY)))
