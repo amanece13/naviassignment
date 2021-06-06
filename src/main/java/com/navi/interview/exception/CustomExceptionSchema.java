@@ -1,9 +1,14 @@
 package com.navi.interview.exception;
 
-import lombok.Data;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 import org.springframework.http.HttpStatus;
 
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class CustomExceptionSchema {
     private Long timestamp;
     private HttpStatus status;
@@ -11,14 +16,4 @@ public class CustomExceptionSchema {
     private String message;
     private boolean success;
 
-    protected CustomExceptionSchema() {}
-
-    public CustomExceptionSchema(Long timestamp, HttpStatus status, String error, String message,Boolean success
-    ) {
-        this.timestamp = timestamp;
-        this.status = status;
-        this.error = error;
-        this.message = message;
-        this.success = success;
-    }
 }

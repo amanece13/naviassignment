@@ -1,9 +1,14 @@
 package com.navi.interview.exception;
 
-import lombok.Data;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 import org.springframework.http.HttpStatus;
 
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class OrderProcessingException extends RuntimeException{
 
     private Long timestamp;
@@ -12,14 +17,4 @@ public class OrderProcessingException extends RuntimeException{
     private String message;
     private Boolean success;
 
-    protected OrderProcessingException() {}
-
-    public OrderProcessingException(
-            Long timestamp, HttpStatus status, String error, String message, Boolean success) {
-        this.timestamp = timestamp;
-        this.status = status;
-        this.error = error;
-        this.message = message;
-        this.success = success;
-    }
 }

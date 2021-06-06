@@ -1,10 +1,15 @@
 package com.navi.interview.exception;
 
-import lombok.Data;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class InvalidInputException extends RuntimeException{
 
     private Long timestamp;
@@ -13,14 +18,4 @@ public class InvalidInputException extends RuntimeException{
     private String message;
     private Boolean success;
 
-    protected InvalidInputException() {}
-
-    public InvalidInputException(
-            Long timestamp, HttpStatus status, String error, String message, Boolean success) {
-        this.timestamp = timestamp;
-        this.status = status;
-        this.error = error;
-        this.message = message;
-        this.success = success;
-    }
 }
